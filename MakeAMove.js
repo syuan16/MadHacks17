@@ -1,4 +1,3 @@
-
 var userChoice = [];
 var userChose = [];
 var xArray =[];
@@ -37,6 +36,7 @@ function start(){
     //document.getElementById("window").innerHTML = xArray;
 
     //alert("HHH");
+
     if(xArray.length>=3) {
         i = win();
         if (i !=0 ) {
@@ -56,13 +56,22 @@ function start(){
         }
     }
     // result();
+    if(count == 1){
+        MakeAMove();
+    }
 
     t=setTimeout(start, refreshTime);
 
 }
 
 function MakeAMove() {
-
+    var I = Math.floor(Math.random()*9) + '';
+    while (document.getElementById(I).innerHTML !=''){
+        I = Math.floor(Math.random()*9) + '';
+    }
+    document.getElementById(I).innerHTML = 'O';
+    oArray.push(I);
+    count = 0;
 
 }
 
@@ -103,13 +112,7 @@ function win(){
     }
     return 0;
 }
-// function result() {
-//     if (xArray[0][0]==xArray[0][1] && xArray[0][0] == xArray[0][2]) {
-//         // clearTimeout(t);
-//         alert("X WIN!");
-//         init();
-//     }
-// }
+
 
 
 function createNewTable() {
@@ -139,6 +142,7 @@ function createNewTable() {
                     this.innerHTML = "O";
                     count = 0;
                     oArray.push(this.id);
+                    oArray.push(MakeAMove());
                 }
 
                 userMoved = true;
