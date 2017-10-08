@@ -1,16 +1,24 @@
-var count = 0;
+
 var userChoice = [];
 var userChose = [];
 var xArray =[];
 var oArray = [];
+var count = 0;
 var userMoved = false;
 var refreshTime = 30;
-
+var winList = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
+    [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
 
 
 
 
 function init(){
+    userChoice = [];
+    userChose = [];
+    xArray = [];
+    oArray = [];
+    count = 0;
+    userMoved = false;
     document.body.innerHTML = '';
     // var newElement = document.createElement("IMG");
     // newElement.setAttribute("src", "./uwmadison.jpg");
@@ -30,8 +38,7 @@ function start(){
 
     //alert("HHH");
     if(xArray.length>=3) {
-        if (((xArray[0][0] === xArray[1][0]) && (xArray[0][0] === xArray[2][0])) ||
-            (xArray[0][0] === xArray[0][1]) && (xArray[0][0] === xArray[0][2]) ) {
+        if (win() ) {
             clearTimeout(t);
             alert("X WIN!");
             init();
@@ -56,7 +63,25 @@ function MoveFirst(){
 
 }
 
+function win(){
+    if(xArray.length < 3){
+        return;
+    }
+    for(i = 0; i < winList.length; i++){
+        var win = true;
+        for(j = 0; j < 3; j++){
+            if(xArray.indexOf(''+winList[i][j]) == -1){
+                win = false;
+                break;
+            }
 
+        }
+        if(win == true){
+            return win;
+        }
+    }
+    return win;
+}
 // function result() {
 //     if (xArray[0][0]==xArray[0][1] && xArray[0][0] == xArray[0][2]) {
 //         // clearTimeout(t);
@@ -83,16 +108,16 @@ function createNewTable() {
                  if (this.innerHTML != '' /*|| userMoved == true*/){
                     return;
                 }
-                var I = parseInt(this.id);
-                userChoice =  [(I-(I%3))/3,I%3];
+                // var I = parseInt(this.id);
+                // userChoice =  [(I-(I%3))/3,I%3];
                 if (count % 2 == 0) {
                     this.innerHTML = "X";
                     count = 1;
-                    xArray.push(userChoice);
+                    xArray.push(this.id);
                 } else {
                     this.innerHTML = "O";
                     count = 0;
-                    oArray.push(userChoice);
+                    oArray.push(this.id);
                 }
 
                 userMoved = true;
