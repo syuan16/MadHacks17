@@ -3,8 +3,9 @@ var userChose = [];
 var xArray =[];
 var oArray = [];
 var count = 0;
+var t;
 var userMoved = false;
-var refreshTime = 30;
+var refreshTime = 200;
 var winList = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
     [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
 
@@ -19,10 +20,8 @@ function init(){
     count = 0;
     userMoved = false;
     document.body.innerHTML = '';
-    // var newElement = document.createElement("IMG");
-    // newElement.setAttribute("src", "./uwmadison.jpg");
+    clearTimeout(t);
     createNewTable();
-    // result();
     start();
 
 
@@ -36,40 +35,55 @@ function start(){
     //document.getElementById("window").innerHTML = xArray;
 
     //alert("HHH");
-
+    var finished = false;
     if(xArray.length>=3) {
         i = win();
         if (i !=0 ) {
+
             clearTimeout(t);
             if (i < 0) {
-                alert("O WIN!");
+                //alert("O WIN!");
             } else {
 
                 alert("X WIN!");
             }
             init();
+            finished = true
         }
         if(xArray.length > 4 || oArray.length >4){
             clearTimeout(t);
             alert("DRAW!!!");
             init();
+            finished = true;
         }
     }
     // result();
-    if(count == 1){
-        MakeAMove();
-    }
 
-    t=setTimeout(start, refreshTime);
+    MakeAMove();
+
+    if(!finished) {
+        t = setTimeout(start, refreshTime);
+    }
+}
+function stop(){
+    clearTimeout(t);
+}
+
+function nouse(){
 
 }
 
 function MakeAMove() {
+
+    if(count % 2 == 0){
+        return;
+    }
     var I = Math.floor(Math.random()*9) + '';
     while (document.getElementById(I).innerHTML !=''){
         I = Math.floor(Math.random()*9) + '';
     }
     document.getElementById(I).innerHTML = 'O';
+
     oArray.push(I);
     count = 0;
 
@@ -138,12 +152,13 @@ function createNewTable() {
                     this.innerHTML = "X";
                     count = 1;
                     xArray.push(this.id);
-                } else {
-                    this.innerHTML = "O";
-                    count = 0;
-                    oArray.push(this.id);
-                    oArray.push(MakeAMove());
                 }
+                // } else {
+                //     this.innerHTML = "O";
+                //     count = 0;
+                //     oArray.push(this.id);
+                //     oArray.push(MakeAMove());
+                // }
 
                 userMoved = true;
                 userChose.push(userChose);
