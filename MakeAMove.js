@@ -42,7 +42,7 @@ function start(){
 
             clearTimeout(t);
             if (i < 0) {
-                //alert("O WIN!");
+                alert("O WIN!");
             } else {
 
                 alert("X WIN!");
