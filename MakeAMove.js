@@ -8,6 +8,7 @@ var userMoved = false;
 var refreshTime = 200;
 var winList = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
     [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+var corner = ['0', '2', '6', '8'];
 
 
 
@@ -59,18 +60,11 @@ function start(){
     }
     // result();
 
-    MakeAMove();
+    MoveFirst();
 
     if(!finished) {
         t = setTimeout(start, refreshTime);
     }
-}
-function stop(){
-    clearTimeout(t);
-}
-
-function nouse(){
-
 }
 
 function MakeAMove() {
@@ -89,8 +83,47 @@ function MakeAMove() {
 
 }
 
+function WriteO(id){
+    if(document.getElementById(id).innerHTML =='') {
+        document.getElementById(id).innerHTML = 'O';
+        oArray.push(id);
+        count = 0;
+        return true;
+    }else{
+        return false;
+    }
+}
 
 function MoveFirst(){
+    // first round
+    if (xArray.length == 1) {
+        // first piece is in center
+        if (xArray[0] == 4) {
+            while(!WriteO("" + corner[Math.floor(Math.random()*5)]));
+            return;
+        }
+        // first piece is on corner
+
+        if (corner.indexOf(xArray[0]) != -1) {
+            WriteO("4");
+            return;
+        }else{
+            if(xArray[0]=='1' || xArray[0] == '7'){
+                var i = parseInt(xArray[0]);
+                while(!WriteO(''+ (i + Math.ceil(Math.random()-0.5))));
+            }else{
+                var i = parseInt(xArray[0]);
+                while(!WriteO(''+ (i + 3*Math.ceil(Math.random()-0.5))));
+            }
+        }
+        // first piece is on edge
+
+    }
+
+
+    // second round
+
+
 
 
 
