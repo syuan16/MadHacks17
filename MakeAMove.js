@@ -26,8 +26,6 @@ function init(){
     clearTimeout(t);
     createNewTable();
     start();
-
-
 }
 
 function start(){
@@ -131,7 +129,7 @@ function MoveFirst(){
             return;
         }
     }else{
-        W;
+        WriteO(edge[Math.floor(Math.random()*5)]);
     }
 
 
